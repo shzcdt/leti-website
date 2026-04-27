@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+.env
+*.log
+[200~dist/
+build/
+node_modules/
+EOF~
