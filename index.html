@@ -105,38 +105,161 @@
           </div>
           <div class="about__visual">
             <div class="about__diagram">
-              <svg viewBox="0 0 400 350" class="about__diagram-svg">
-                <!-- Crucible -->
-                <path d="M120,280 L120,200 Q120,180 140,180 L260,180 Q280,180 280,200 L280,280" 
-                      fill="none" stroke="#3b82f6" stroke-width="3"/>
-                <ellipse cx="200" cy="200" rx="80" ry="20" fill="#3b82f6" opacity="0.3"/>
-                
-                <!-- Crystal -->
-                <polygon points="200,50 230,100 230,180 200,200 170,180 170,100" 
-                         fill="url(#crystalGrad)" opacity="0.8"/>
-                <ellipse cx="200" cy="100" rx="30" ry="10" fill="#3b82f6" opacity="0.5"/>
-                
-                <!-- Heater -->
-                <path d="M100,220 L100,260 Q100,280 120,280 L280,280 Q300,280 300,260 L300,220" 
-                      fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="8,4"/>
-                
-                <!-- AI Node indicators -->
-                <g class="ai-point">
-                  <circle cx="200" cy="75" r="8" fill="#10b981" opacity="0.8"/>
-                  <text x="200" y="75" text-anchor="middle" fill="#fff" font-size="10" dy="3">T°</text>
+              <svg viewBox="0 0 800 600" class="about__diagram-svg czochralski-diagram" aria-label="Анимированная схема метода Чохральского">
+                <defs>
+                  <linearGradient id="melt-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.9">
+                      <animate attributeName="stop-color" values="#f59e0b;#ef4444;#f59e0b" dur="3s" repeatCount="indefinite"/>
+                    </stop>
+                    <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1">
+                      <animate attributeName="stop-color" values="#ef4444;#f59e0b;#ef4444" dur="3s" repeatCount="indefinite"/>
+                    </stop>
+                  </linearGradient>
+                  <linearGradient id="crystal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.9"/>
+                    <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:0.7"/>
+                    <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:0.8"/>
+                  </linearGradient>
+                  <linearGradient id="heater-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.8"/>
+                    <stop offset="50%" style="stop-color:#ef4444;stop-opacity:0.9"/>
+                    <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.8"/>
+                  </linearGradient>
+                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+                  </marker>
+                </defs>
+                <g class="chamber-group interactive-element" data-tooltip="Защитная камера: создаёт инертную атмосферу (аргон) для предотвращения окисления">
+                  <rect x="150" y="50" width="500" height="480" rx="8" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="8,4" opacity="0.5"/>
+                  <text x="400" y="75" text-anchor="middle" fill="#64748b" font-size="12" font-family="Inter, sans-serif">Камера с инертной атмосферой</text>
                 </g>
-                <g class="ai-point">
-                  <circle cx="150" cy="240" r="8" fill="#3b82f6" opacity="0.8"/>
-                  <text x="150" y="240" text-anchor="middle" fill="#fff" font-size="10" dy="3">ω</text>
+                <g class="pull-system-group interactive-element" data-tooltip="Система подъёма: вытягивает кристалл со скоростью 0.5-2 мм/мин">
+                  <rect x="370" y="20" width="60" height="40" rx="4" fill="#475569" opacity="0.8"/>
+                  <text x="400" y="45" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter, sans-serif">Подъём</text>
+                  <line x1="400" y1="60" x2="400" y2="100" stroke="#475569" stroke-width="3"/>
+                  <path d="M390,80 L400,70 L410,80" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)">
+                    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-10; 0,0" dur="2s" repeatCount="indefinite"/>
+                  </path>
                 </g>
-                <g class="ai-point">
-                  <circle cx="250" cy="240" r="8" fill="#3b82f6" opacity="0.8"/>
-                  <text x="250" y="240" text-anchor="middle" fill="#fff" font-size="10" dy="3">P</text>
+                <g class="crystal-group" style="transform-origin: 400px 120px;">
+                  <animateTransform attributeName="transform" type="rotate" from="0 400 120" to="360 400 120" dur="8s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="translate" values="0,0; 0,-30; 0,0" dur="12s" repeatCount="indefinite"/>
+                  <g class="crystal-body interactive-element" data-tooltip="Монокристалл кремния: растёт из затравки, диаметр до 300мм, длина до 2м">
+                    <polygon points="400,80 435,140 435,200 400,220 365,200 365,140" fill="url(#crystal-gradient)" stroke="#60a5fa" stroke-width="2" opacity="0.9" filter="url(#glow)"/>
+                    <ellipse cx="400" cy="220" rx="35" ry="10" fill="#3b82f6" opacity="0.6"/>
+                    <ellipse cx="400" cy="140" rx="35" ry="10" fill="#60a5fa" opacity="0.5"/>
+                    <line x1="400" y1="80" x2="400" y2="220" stroke="#1d4ed8" stroke-width="1" opacity="0.5"/>
+                    <line x1="380" y1="100" x2="380" y2="210" stroke="#1d4ed8" stroke-width="1" opacity="0.3"/>
+                    <line x1="420" y1="100" x2="420" y2="210" stroke="#1d4ed8" stroke-width="1" opacity="0.3"/>
+                  </g>
+                  <g class="crystallization-zone interactive-element" data-tooltip="Зона кристаллизации: температура ~1414°C, затвердевание кремния">
+                    <ellipse cx="400" cy="225" rx="40" ry="12" fill="none" stroke="#f59e0b" stroke-width="3" filter="url(#glow)">
+                      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                    </ellipse>
+                    <circle cx="385" cy="225" r="2" fill="#fbbf24"><animate attributeName="opacity" values="1;0;1" dur="1.5s" repeatCount="indefinite"/></circle>
+                    <circle cx="415" cy="225" r="2" fill="#fbbf24"><animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/></circle>
+                  </g>
                 </g>
-                
-                <!-- Labels -->
-                <text x="200" y="320" text-anchor="middle" fill="#94a3b8" font-size="12">Схема процесса Чохральского</text>
+                <g class="crucible-group" style="transform-origin: 400px 380px;">
+                  <animateTransform attributeName="transform" type="rotate" from="0 400 380" to="-360 400 380" dur="6s" repeatCount="indefinite"/>
+                  <g class="crucible-body interactive-element" data-tooltip="Тигель: кварцевый контейнер, удерживает расплав кремния при 1414°C">
+                    <path d="M280,400 L280,320 Q280,300 300,300 L500,300 Q520,300 520,320 L520,400" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+                    <ellipse cx="400" cy="400" rx="120" ry="20" fill="#475569" opacity="0.5"/>
+                  </g>
+                  <g class="melt-group interactive-element" data-tooltip="Расплав кремния: жидкий кремний при температуре 1414°C">
+                    <ellipse cx="400" cy="315" rx="110" ry="18" fill="url(#melt-gradient)" filter="url(#glow)">
+                      <animate attributeName="ry" values="18;20;18" dur="2s" repeatCount="indefinite"/>
+                    </ellipse>
+                    <path d="M295,315 Q320,310 345,315 T395,315 T495,315" fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.8">
+                      <animate attributeName="d" values="M295,315 Q320,310 345,315 T395,315 T495,315;M295,315 Q320,320 345,315 T395,315 T495,315;M295,315 Q320,310 345,315 T395,315 T495,315" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <ellipse cx="400" cy="315" rx="100" ry="15" fill="#ef4444" opacity="0.3">
+                      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="1.5s" repeatCount="indefinite"/>
+                    </ellipse>
+                  </g>
+                </g>
+                <g class="heater-group interactive-element" data-tooltip="Нагреватель: индукционная катушка, поддерживает температуру 1414°C">
+                  <path d="M260,340 L260,380 Q260,400 280,400 L520,400 Q540,400 540,380 L540,340" fill="none" stroke="url(#heater-gradient)" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow)">
+                    <animate attributeName="stroke-dashoffset" values="0;18;0" dur="2s" repeatCount="indefinite"/>
+                  </path>
+                  <ellipse cx="400" cy="370" rx="140" ry="30" fill="#f59e0b" opacity="0.1" filter="url(#glow)">
+                    <animate attributeName="opacity" values="0.1;0.2;0.1" dur="2s" repeatCount="indefinite"/>
+                  </ellipse>
+                </g>
+                <g class="rotation-indicator-crystal interactive-element" data-tooltip="Вращение кристалла: 10-20 RPM по часовой стрелке">
+                  <path d="M350,120 A50,50 0 0,1 370,100" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                  <text x="340" y="95" text-anchor="middle" fill="#3b82f6" font-size="11" font-family="Inter, sans-serif">10-20 RPM</text>
+                </g>
+                <g class="rotation-indicator-crucible interactive-element" data-tooltip="Вращение тигеля: 5-10 RPM против часовой стрелки">
+                  <path d="M450,360 A50,50 0 0,0 430,380" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowhead)"/>
+                  <text x="480" y="375" text-anchor="middle" fill="#ef4444" font-size="11" font-family="Inter, sans-serif">5-10 RPM</text>
+                </g>
+                <g class="labels-group">
+                  <g class="temp-label interactive-element" data-tooltip="Температура расплава: 1414°C (точка плавления кремния)">
+                    <rect x="550" y="300" width="90" height="35" rx="6" fill="#1e293b" opacity="0.9" stroke="#f59e0b" stroke-width="1"/>
+                    <text x="595" y="315" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="600" font-family="Inter, sans-serif">1414°C</text>
+                    <text x="595" y="328" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter, sans-serif">Температура</text>
+                  </g>
+                  <g class="pull-rate-label interactive-element" data-tooltip="Скорость подъёма: 0.5-2 мм/мин определяет диаметр кристалла">
+                    <rect x="160" y="100" width="100" height="35" rx="6" fill="#1e293b" opacity="0.9" stroke="#3b82f6" stroke-width="1"/>
+                    <text x="210" y="115" text-anchor="middle" fill="#3b82f6" font-size="13" font-weight="600" font-family="Inter, sans-serif">0.5-2 мм/мин</text>
+                    <text x="210" y="128" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter, sans-serif">Скорость подъёма</text>
+                  </g>
+                  <g class="diameter-label interactive-element" data-tooltip="Диаметр кристалла: до 300мм для современных установок">
+                    <rect x="550" y="150" width="90" height="35" rx="6" fill="#1e293b" opacity="0.9" stroke="#60a5fa" stroke-width="1"/>
+                    <text x="595" y="165" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="600" font-family="Inter, sans-serif">до 300мм</text>
+                    <text x="595" y="178" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Inter, sans-serif">Диаметр</text>
+                  </g>
+                </g>
+                <g class="ai-sensors-group">
+                  <g class="ai-sensor ai-point interactive-element" data-tooltip="AI-сенсор температуры: мониторинг в реальном времени">
+                    <circle cx="400" cy="60" r="10" fill="#10b981" opacity="0.9" filter="url(#glow)"/>
+                    <text x="400" y="64" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="JetBrains Mono, monospace">T°</text>
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                  </g>
+                  <g class="ai-sensor ai-point interactive-element" data-tooltip="AI-сенсор вращения кристалла: контроль стабильности">
+                    <circle cx="320" cy="150" r="10" fill="#3b82f6" opacity="0.9" filter="url(#glow)"/>
+                    <text x="320" y="154" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="JetBrains Mono, monospace">ω₁</text>
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="150;148;150" dur="3s" repeatCount="indefinite"/>
+                  </g>
+                  <g class="ai-sensor ai-point interactive-element" data-tooltip="AI-сенсор вращения тигеля: синхронизация с кристаллом">
+                    <circle cx="480" cy="350" r="10" fill="#3b82f6" opacity="0.9" filter="url(#glow)"/>
+                    <text x="480" y="354" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="JetBrains Mono, monospace">ω₂</text>
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="cx" values="480;482;480" dur="3s" repeatCount="indefinite"/>
+                  </g>
+                  <g class="ai-sensor ai-point interactive-element" data-tooltip="AI-сенсор давления: контроль атмосферы в камере">
+                    <circle cx="600" cy="250" r="10" fill="#8b5cf6" opacity="0.9" filter="url(#glow)"/>
+                    <text x="600" y="254" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="JetBrains Mono, monospace">P</text>
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                  </g>
+                  <g class="ai-sensor ai-point interactive-element" data-tooltip="AI-сенсор уровня: отслеживание расхода расплава">
+                    <circle cx="250" cy="320" r="10" fill="#f59e0b" opacity="0.9" filter="url(#glow)"/>
+                    <text x="250" y="324" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="JetBrains Mono, monospace">L</text>
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="cy" values="320;322;320" dur="4s" repeatCount="indefinite"/>
+                  </g>
+                </g>
+                <text x="400" y="560" text-anchor="middle" fill="#94a3b8" font-size="14" font-family="Inter, sans-serif">Интерактивная схема процесса Чохральского</text>
+                <text x="400" y="580" text-anchor="middle" fill="#64748b" font-size="11" font-family="Inter, sans-serif">Наведите на элементы для получения информации</text>
               </svg>
+              <div class="czochralski-tooltip" id="czTooltip"></div>
+              <div class="czochralski-controls">
+                <button class="cz-control-btn" id="czPlayPause" aria-label="Пауза/Старт"><span class="cz-btn-icon">⏸️</span></button>
+                <button class="cz-control-btn" id="czReset" aria-label="Сброс"><span class="cz-btn-icon">🔄</span></button>
+                <div class="cz-speed-control">
+                  <label for="czSpeed">Скорость:</label>
+                  <input type="range" id="czSpeed" min="0.5" max="2" step="0.1" value="1"/>
+                </div>
+              </div>
             </div>
           </div>
         </div>

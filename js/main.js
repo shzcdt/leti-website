@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initSmoothScroll();
   initParticles();
+  initCzochralskiDiagram();
 });
 
 // ===================================
@@ -326,6 +327,146 @@ if (window.performance && window.performance.getEntriesByType) {
         'DOM Content Loaded': `${navEntry.domContentLoadedEventEnd - navEntry.navigationStart}ms`,
         'Full Page Load': `${navEntry.loadEventEnd - navEntry.navigationStart}ms`
       });
+    }
+  });
+}
+// ===================================
+// Czochralski Diagram Interactive Features
+// ===================================
+/**
+ * Initializes interactive features for the Czochralski diagram
+ */
+function initCzochralskiDiagram() {
+  const diagram = document.querySelector('.czochralski-diagram');
+  const tooltip = document.getElementById('czTooltip');
+  const playPauseBtn = document.getElementById('czPlayPause');
+  const resetBtn = document.getElementById('czReset');
+  const speedSlider = document.getElementById('czSpeed');
+  
+  if (!diagram || !tooltip) return;
+  
+  // Interactive elements hover/tooltips
+  const interactiveElements = diagram.querySelectorAll('.interactive-element');
+  
+  interactiveElements.forEach(element => {
+    element.addEventListener('mouseenter', (e) => showTooltip(e, element));
+    element.addEventListener('mousemove', (e) => moveTooltip(e, tooltip));
+    element.addEventListener('mouseleave', () => hideTooltip(tooltip));
+    
+    // Touch support for mobile
+    element.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      showTooltip(e, element);
+    });
+  });
+  
+  // Play/Pause functionality
+  if (playPauseBtn) {
+    let isPlaying = true;
+    playPauseBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        diagram.classList.remove('paused');
+        playPauseBtn.querySelector('.cz-btn-icon').textContent = '⏸️';
+      } else {
+        diagram.classList.add('paused');
+        playPauseBtn.querySelector('.cz-btn-icon').textContent = '▶️';
+      }
+    });
+  }
+  
+  // Reset functionality
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      diagram.classList.remove('paused');
+      if (playPauseBtn) {
+        playPauseBtn.querySelector('.cz-btn-icon').textContent = '⏸️';
+      }
+      if (speedSlider) {
+        speedSlider.value = '1';
+      }
+      updateAnimationSpeed(diagram, 1);
+    });
+  }
+  
+  // Speed control
+  if (speedSlider) {
+    speedSlider.addEventListener('input', (e) => {
+      const speed = parseFloat(e.target.value);
+      updateAnimationSpeed(diagram, speed);
+    });
+  }
+}
+
+/**
+ * Shows tooltip for an interactive element
+ * @param {Event} e - Mouse event
+ * @param {HTMLElement} element - Target element
+ */
+function showTooltip(e, element) {
+  const tooltip = document.getElementById('czTooltip');
+  if (!tooltip) return;
+  
+  const text = element.getAttribute('data-tooltip');
+  if (!text) return;
+  
+  tooltip.textContent = text;
+  tooltip.classList.add('visible');
+  moveTooltip(e, tooltip);
+}
+
+/**
+ * Moves tooltip to follow cursor
+ * @param {Event} e - Mouse event
+ * @param {HTMLElement} tooltip - Tooltip element
+ */
+function moveTooltip(e, tooltip) {
+  if (!tooltip) return;
+  
+  const diagramContainer = document.querySelector('.about__diagram');
+  if (!diagramContainer) return;
+  
+  const containerRect = diagramContainer.getBoundingClientRect();
+  const tooltipWidth = 280;
+  const tooltipHeight = 60;
+  
+  let left = e.clientX - containerRect.left + 15;
+  let top = e.clientY - containerRect.top + 15;
+  
+  // Prevent tooltip from going outside container
+  if (left + tooltipWidth > containerRect.width) {
+    left = e.clientX - containerRect.left - tooltipWidth - 15;
+  }
+  if (top + tooltipHeight > containerRect.height) {
+    top = e.clientY - containerRect.top - tooltipHeight - 15;
+  }
+  
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+/**
+ * Hides the tooltip
+ * @param {HTMLElement} tooltip - Tooltip element
+ */
+function hideTooltip(tooltip) {
+  if (!tooltip) return;
+  tooltip.classList.remove('visible');
+}
+
+/**
+ * Updates animation speed based on slider value
+ * @param {SVGElement} diagram - Diagram SVG element
+ * @param {number} speed - Speed multiplier
+ */
+function updateAnimationSpeed(diagram, speed) {
+  const animatedElements = diagram.querySelectorAll('animate, animateTransform');
+  animatedElements.forEach(anim => {
+    const originalDur = anim.getAttribute('dur');
+    if (originalDur) {
+      const baseDur = parseFloat(originalDur);
+      const newDur = baseDur / speed;
+      anim.setAttribute('dur', `${newDur}s`);
     }
   });
 }
