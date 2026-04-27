@@ -3,12 +3,503 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ИИ в выращивании кремния</title>
+  <meta name="description" content="ИИ-оптимизация выращивания монокристаллического кремния методом Чохральского" />
+  <title>ИИ в выращивании кремния | Метод Чохральского</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>🚀 Проект в разработке...</h1>
-  <p>Скоро здесь будет сайт про ИИ и метод Чохральского.</p>
+  <!-- Header / Navigation -->
+  <header class="header" id="header">
+    <div class="container header__container">
+      <a href="#" class="header__logo">
+        <span class="header__logo-icon">🔬</span>
+        <span class="header__logo-text">AI Czochralski</span>
+      </a>
+      <nav class="header__nav" id="nav">
+        <ul class="header__nav-list">
+          <li><a href="#about" class="header__nav-link">О проекте</a></li>
+          <li><a href="#problem" class="header__nav-link">Проблема/Решение</a></li>
+          <li><a href="#advantages" class="header__nav-link">Преимущества</a></li>
+          <li><a href="#process" class="header__nav-link">Как работает</a></li>
+          <li><a href="#cases" class="header__nav-link">Кейсы</a></li>
+          <li><a href="#team" class="header__nav-link">Команда</a></li>
+        </ul>
+      </nav>
+      <button class="header__toggle" id="menuToggle" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="container hero__container">
+        <div class="hero__content">
+          <h1 class="hero__title">
+            ИИ в выращивании кремния: 
+            <span class="hero__title-accent">точность, эффективность, будущее</span>
+          </h1>
+          <p class="hero__subtitle">
+            Как нейросети оптимизируют процесс Чохральского — от контроля температуры до прогнозирования дефектов
+          </p>
+          <a href="#about" class="hero__btn btn">Узнать подробнее</a>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__crystal">
+            <svg viewBox="0 0 200 300" class="hero__crystal-svg">
+              <defs>
+                <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                  <stop offset="50%" style="stop-color:#10b981;stop-opacity:0.6" />
+                  <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.8" />
+                </linearGradient>
+              </defs>
+              <polygon points="100,0 150,80 150,220 100,300 50,220 50,80" fill="url(#crystalGrad)" opacity="0.9"/>
+              <ellipse cx="100" cy="80" rx="50" ry="15" fill="#3b82f6" opacity="0.5"/>
+              <ellipse cx="100" cy="220" rx="50" ry="15" fill="#10b981" opacity="0.5"/>
+              <!-- Neural network nodes -->
+              <circle cx="60" cy="120" r="4" fill="#10b981" class="hero__node"/>
+              <circle cx="140" cy="100" r="4" fill="#3b82f6" class="hero__node"/>
+              <circle cx="70" cy="180" r="4" fill="#10b981" class="hero__node"/>
+              <circle cx="130" cy="160" r="4" fill="#3b82f6" class="hero__node"/>
+              <circle cx="100" cy="140" r="5" fill="#fff" class="hero__node"/>
+            </svg>
+          </div>
+          <div class="hero__particles" id="particles"></div>
+        </div>
+      </div>
+      <div class="hero__bg-grid"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about">
+      <div class="container about__container">
+        <h2 class="section__title">О проекте</h2>
+        <div class="about__grid">
+          <div class="about__content">
+            <p class="about__text">
+              <strong>Метод Чохральского</strong> — ключевая технология производства монокристаллического кремния, 
+              используемого в микроэлектронике, солнечной энергетике и оптоэлектронике.
+            </p>
+            <p class="about__text">
+              Процесс требует прецизионного контроля температуры (±0.5°C), скорости вращения кристалла 
+              и тигля, а также давления в камере. Малейшие отклонения приводят к образованию дефектов 
+              и браку дорогостоящих кристаллов.
+            </p>
+            <div class="about__ai-role">
+              <h3 class="about__ai-title">🧠 Роль искусственного интеллекта:</h3>
+              <ul class="about__ai-list">
+                <li>Предсказание оптимальных параметров роста</li>
+                <li>Контроль и детекция дефектов в реальном времени</li>
+                <li>Оптимизация энергозатрат процесса</li>
+                <li>Прогнозирование качества кристалла до завершения роста</li>
+              </ul>
+            </div>
+          </div>
+          <div class="about__visual">
+            <div class="about__diagram">
+              <svg viewBox="0 0 400 350" class="about__diagram-svg">
+                <!-- Crucible -->
+                <path d="M120,280 L120,200 Q120,180 140,180 L260,180 Q280,180 280,200 L280,280" 
+                      fill="none" stroke="#3b82f6" stroke-width="3"/>
+                <ellipse cx="200" cy="200" rx="80" ry="20" fill="#3b82f6" opacity="0.3"/>
+                
+                <!-- Crystal -->
+                <polygon points="200,50 230,100 230,180 200,200 170,180 170,100" 
+                         fill="url(#crystalGrad)" opacity="0.8"/>
+                <ellipse cx="200" cy="100" rx="30" ry="10" fill="#3b82f6" opacity="0.5"/>
+                
+                <!-- Heater -->
+                <path d="M100,220 L100,260 Q100,280 120,280 L280,280 Q300,280 300,260 L300,220" 
+                      fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="8,4"/>
+                
+                <!-- AI Node indicators -->
+                <g class="ai-point">
+                  <circle cx="200" cy="75" r="8" fill="#10b981" opacity="0.8"/>
+                  <text x="200" y="75" text-anchor="middle" fill="#fff" font-size="10" dy="3">T°</text>
+                </g>
+                <g class="ai-point">
+                  <circle cx="150" cy="240" r="8" fill="#3b82f6" opacity="0.8"/>
+                  <text x="150" y="240" text-anchor="middle" fill="#fff" font-size="10" dy="3">ω</text>
+                </g>
+                <g class="ai-point">
+                  <circle cx="250" cy="240" r="8" fill="#3b82f6" opacity="0.8"/>
+                  <text x="250" y="240" text-anchor="middle" fill="#fff" font-size="10" dy="3">P</text>
+                </g>
+                
+                <!-- Labels -->
+                <text x="200" y="320" text-anchor="middle" fill="#94a3b8" font-size="12">Схема процесса Чохральского</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section class="problem section" id="problem">
+      <div class="container problem__container">
+        <h2 class="section__title">Проблема и Решение</h2>
+        <div class="problem__grid">
+          <div class="problem__card problem__card--issue">
+            <div class="problem__icon">⚠️</div>
+            <h3 class="problem__title">Проблема</h3>
+            <ul class="problem__list">
+              <li>
+                <span class="problem__bullet">🔴</span>
+                <span>Высокий брак при выращивании кристаллов (до 30%)</span>
+              </li>
+              <li>
+                <span class="problem__bullet">🔴</span>
+                <span>Энергоёмкость процесса (тысячи кВт·ч на кристалл)</span>
+              </li>
+              <li>
+                <span class="problem__bullet">🔴</span>
+                <span>Сложность ручного контроля параметров в реальном времени</span>
+              </li>
+              <li>
+                <span class="problem__bullet">🔴</span>
+                <span>Задержки в реакции на отклонения параметров</span>
+              </li>
+            </ul>
+          </div>
+          <div class="problem__card problem__card--solution">
+            <div class="problem__icon">✅</div>
+            <h3 class="problem__title">Решение с ИИ</h3>
+            <ul class="problem__list">
+              <li>
+                <span class="problem__bullet">🟢</span>
+                <span>Нейросети анализируют данные с датчиков температуры, скорости вращения, давления</span>
+              </li>
+              <li>
+                <span class="problem__bullet">🟢</span>
+                <span>Прогнозирование дефектов до их появления (за 10-20 минут)</span>
+              </li>
+              <li>
+                <span class="problem__bullet">🟢</span>
+                <span>Адаптивная корректировка параметров роста в реальном времени</span>
+              </li>
+              <li>
+                <span class="problem__bullet">🟢</span>
+                <span>Автоматическое ведение журнала процесса для анализа</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="advantages section" id="advantages">
+      <div class="container advantages__container">
+        <h2 class="section__title">Преимущества внедрения ИИ</h2>
+        <div class="advantages__grid">
+          <div class="advantages__card card">
+            <div class="card__icon">🧠</div>
+            <h3 class="card__title">Точность прогнозирования</h3>
+            <p class="card__text">Снижение брака на 30-50% благодаря предсказанию дефектов на ранних стадиях</p>
+          </div>
+          <div class="advantages__card card">
+            <div class="card__icon">⚡</div>
+            <h3 class="card__title">Энергоэффективность</h3>
+            <p class="card__text">Оптимизация расхода энергии до 25% через адаптивное управление нагревом</p>
+          </div>
+          <div class="advantages__card card">
+            <div class="card__icon">🔬</div>
+            <h3 class="card__title">Контроль качества</h3>
+            <p class="card__text">Компьютерное зрение для детекции микротрещин и дислокаций</p>
+          </div>
+          <div class="advantages__card card">
+            <div class="card__icon">📊</div>
+            <h3 class="card__title">Data-driven решения</h3>
+            <p class="card__text">Сбор и анализ исторических данных для непрерывного улучшения процессов</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process section" id="process">
+      <div class="container process__container">
+        <h2 class="section__title">Как работает ИИ в процессе Чохральского</h2>
+        <div class="process__steps">
+          <div class="process__step">
+            <div class="process__step-number">1</div>
+            <div class="process__step-content">
+              <h3 class="process__step-title">📥 Сбор данных</h3>
+              <p class="process__step-text">Датчики температуры, давления, скорости вращения кристалла и тигля, визуальные камеры</p>
+            </div>
+          </div>
+          <div class="process__connector"></div>
+          <div class="process__step">
+            <div class="process__step-number">2</div>
+            <div class="process__step-content">
+              <h3 class="process__step-title">🔄 Предобработка</h3>
+              <p class="process__step-text">Фильтрация шумов, нормализация данных, аугментация для обучения моделей</p>
+            </div>
+          </div>
+          <div class="process__connector"></div>
+          <div class="process__step">
+            <div class="process__step-number">3</div>
+            <div class="process__step-content">
+              <h3 class="process__step-title">🤖 Прогнозирование</h3>
+              <p class="process__step-text">ML-модели (LSTM, CNN, Random Forest) предсказывают качество кристалла</p>
+            </div>
+          </div>
+          <div class="process__connector"></div>
+          <div class="process__step">
+            <div class="process__step-number">4</div>
+            <div class="process__step-content">
+              <h3 class="process__step-title">🔁 Обратная связь</h3>
+              <p class="process__step-text">Автоматическая корректировка параметров роста через SCADA-систему</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section class="opportunities section" id="opportunities">
+      <div class="container opportunities__container">
+        <h2 class="section__title">Возможности для внедрения</h2>
+        <div class="opportunities__grid">
+          <div class="opportunities__card opportunity-card">
+            <div class="opportunity-card__header">
+              <span class="opportunity-card__icon">🎓</span>
+              <h3 class="opportunity-card__title">Образовательный модуль «AI в материаловедении»</h3>
+            </div>
+            <ul class="opportunity-card__list">
+              <li>10 лекций + 5 лабораторных работ</li>
+              <li>Работа с реальными датасетами с производств</li>
+              <li>Итоговый проект: оптимизация параметров роста</li>
+            </ul>
+            <div class="opportunity-card__footer">
+              <span class="opportunity-card__price">Грантовое финансирование</span>
+            </div>
+          </div>
+          <div class="opportunities__card opportunity-card">
+            <div class="opportunity-card__header">
+              <span class="opportunity-card__icon">🗄️</span>
+              <h3 class="opportunity-card__title">База данных параметров роста кремния</h3>
+            </div>
+            <ul class="opportunity-card__list">
+              <li>Открытый доступ к анонимизированным данным</li>
+              <li>Поиск по типу дефекта, температуре, скорости роста</li>
+              <li>Регулярные обновления от партнёров-производителей</li>
+            </ul>
+            <div class="opportunity-card__footer">
+              <span class="opportunity-card__price">Открытый доступ</span>
+            </div>
+          </div>
+          <div class="opportunities__card opportunity-card">
+            <div class="opportunity-card__header">
+              <span class="opportunity-card__icon">🤝</span>
+              <h3 class="opportunity-card__title">Консалтинг для производств</h3>
+            </div>
+            <ul class="opportunity-card__list">
+              <li>Аудит технологического процесса</li>
+              <li>Внедрение ML-пайплайна под конкретную установку</li>
+              <li>Обучение инженеров работе с AI-инструментами</li>
+            </ul>
+            <div class="opportunity-card__footer">
+              <span class="opportunity-card__price">По запросу</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section class="cases section" id="cases">
+      <div class="container cases__container">
+        <h2 class="section__title">Кейсы применения</h2>
+        <div class="cases__grid">
+          <div class="cases__card case-card">
+            <div class="case-card__tag">🔹 Снижение дефектности</div>
+            <p class="case-card__text">
+              Нейросеть предсказала образование дислокаций за 15 минут до их появления — 
+              позволила скорректировать параметры и сохранить кристалл стоимостью >500 000 руб.
+            </p>
+            <div class="case-card__result">
+              <span class="case-card__metric">−45%</span>
+              <span class="case-card__metric-label">брак кристаллов</span>
+            </div>
+          </div>
+          <div class="cases__card case-card">
+            <div class="case-card__tag">🔹 Оптимизация энергопотребления</div>
+            <p class="case-card__text">
+              RL-алгоритм подобрал оптимальный профиль нагрева — экономия 18% электроэнергии 
+              без потери качества кристаллов. Окупаемость внедрения: 8 месяцев.
+            </p>
+            <div class="case-card__result">
+              <span class="case-card__metric">−18%</span>
+              <span class="case-card__metric-label">расход энергии</span>
+            </div>
+          </div>
+          <div class="cases__card case-card">
+            <div class="case-card__tag">🔹 Образовательный симулятор</div>
+            <p class="case-card__text">
+              Студенты тренируются на виртуальной установке Чохральского с AI-фидбеком — 
+              сокращение времени освоения навыков на 40%, безопасность обучения.
+            </p>
+            <div class="case-card__result">
+              <span class="case-card__metric">−40%</span>
+              <span class="case-card__metric-label">время обучения</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="techstack section" id="techstack">
+      <div class="container techstack__container">
+        <h2 class="section__title">Стек технологий</h2>
+        <div class="techstack__grid">
+          <div class="techstack__item">🐍 Python</div>
+          <div class="techstack__item">🔥 PyTorch</div>
+          <div class="techstack__item">🧠 TensorFlow</div>
+          <div class="techstack__item">👁️ OpenCV</div>
+          <div class="techstack__item">📊 SCADA</div>
+          <div class="techstack__item">🗄️ PostgreSQL</div>
+          <div class="techstack__item">📈 Grafana</div>
+          <div class="techstack__item">🐳 Docker</div>
+          <div class="techstack__item">☸️ Kubernetes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team section" id="team">
+      <div class="container team__container">
+        <h2 class="section__title">Команда проекта ⭐</h2>
+        <p class="team__subtitle">Специалисты в области машинного обучения и полупроводниковых технологий</p>
+        <div class="team__grid">
+          <!-- Team Member 1 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">АИ</div>
+            <h3 class="member-card__name">Иванов Алексей</h3>
+            <p class="member-card__role">Ведущий ML-инженер</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000001" class="member-card__contact">📞 +7 (999) 000-00-01</a>
+              <a href="mailto:alexey.ivanov@university.edu" class="member-card__contact">✉️ alexey.ivanov@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 2 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">ПС</div>
+            <h3 class="member-card__name">Петрова Светлана</h3>
+            <p class="member-card__role">Инженер-технолог</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000002" class="member-card__contact">📞 +7 (999) 000-00-02</a>
+              <a href="mailto:svetlana.petrova@university.edu" class="member-card__contact">✉️ svetlana.petrova@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 3 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">СК</div>
+            <h3 class="member-card__name">Смирнов Константин</h3>
+            <p class="member-card__role">Дата-сайентист</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000003" class="member-card__contact">📞 +7 (999) 000-00-03</a>
+              <a href="mailto:konstantin.smirnov@university.edu" class="member-card__contact">✉️ konstantin.smirnov@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 4 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">ЕК</div>
+            <h3 class="member-card__name">Екатерина Козлова</h3>
+            <p class="member-card__role">Computer Vision инженер</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000004" class="member-card__contact">📞 +7 (999) 000-00-04</a>
+              <a href="mailto:ekaterina.kozlova@university.edu" class="member-card__contact">✉️ ekaterina.kozlova@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 5 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">ДМ</div>
+            <h3 class="member-card__name">Дмитрий Морозов</h3>
+            <p class="member-card__role">DevOps инженер</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000005" class="member-card__contact">📞 +7 (999) 000-00-05</a>
+              <a href="mailto:dmitry.morozov@university.edu" class="member-card__contact">✉️ dmitry.morozov@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 6 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">АН</div>
+            <h3 class="member-card__name">Анна Новикова</h3>
+            <p class="member-card__role">Исследователь материалов</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000006" class="member-card__contact">📞 +7 (999) 000-00-06</a>
+              <a href="mailto:anna.novikova@university.edu" class="member-card__contact">✉️ anna.novikova@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 7 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">МВ</div>
+            <h3 class="member-card__name">Максим Волков</h3>
+            <p class="member-card__role">Backend разработчик</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000007" class="member-card__contact">📞 +7 (999) 000-00-07</a>
+              <a href="mailto:maxim.volkov@university.edu" class="member-card__contact">✉️ maxim.volkov@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <!-- Team Member 8 -->
+          <div class="team__card member-card">
+            <div class="member-card__photo">ЮФ</div>
+            <h3 class="member-card__name">Юлия Фёдорова</h3>
+            <p class="member-card__role">Frontend разработчик</p>
+            <div class="member-card__contacts">
+              <a href="tel:+79990000008" class="member-card__contact">📞 +7 (999) 000-00-08</a>
+              <a href="mailto:julia.fedorova@university.edu" class="member-card__contact">✉️ julia.fedorova@university.edu</a>
+            </div>
+            <a href="https://t.me/example" class="member-card__social" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <div class="container footer__container">
+      <div class="footer__top">
+        <div class="footer__logo">
+          <span class="footer__logo-icon">🔬</span>
+          <span class="footer__logo-text">AI Czochralski</span>
+        </div>
+        <nav class="footer__nav">
+          <a href="#about" class="footer__link">О проекте</a>
+          <a href="#advantages" class="footer__link">Преимущества</a>
+          <a href="#cases" class="footer__link">Кейсы</a>
+          <a href="#team" class="footer__link">Команда</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Учебный проект СПбГЭТУ «ЛЭТИ»</p>
+        <div class="footer__links">
+          <a href="#" class="footer__link-item">Политика конфиденциальности</a>
+          <a href="https://github.com" class="footer__link-item" target="_blank" rel="noopener">Исходный код на GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script src="js/main.js"></script>
 </body>
 </html>
