@@ -464,12 +464,116 @@ body {
 .about__diagram {
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .about__diagram-svg {
   max-width: 100%;
   height: auto;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.czochralski-diagram .interactive-element {
+  cursor: pointer;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.czochralski-diagram .interactive-element:hover {
+  opacity: 0.8;
+  filter: brightness(1.2);
+}
+
+.czochralski-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #f8fafc;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  max-width: 280px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.czochralski-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.czochralski-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cz-control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #f8fafc;
+  font-size: 18px;
+}
+
+.cz-control-btn:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(16, 185, 129, 0.4));
+  border-color: rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+.cz-speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  color: #94a3b8;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}
+
+.cz-speed-control input[type="range"] {
+  width: 100px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+  outline: none;
+}
+
+.cz-speed-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cz-speed-control input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
 }
 
 .ai-point {
@@ -479,6 +583,11 @@ body {
 @keyframes blink {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
+}
+
+/* Анимации для схемы Чохральского */
+.czochralski-diagram.paused * {
+  animation-play-state: paused !important;
 }
 
 /* ===================================
