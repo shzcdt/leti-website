@@ -470,3 +470,165 @@ function updateAnimationSpeed(diagram, speed) {
     }
   });
 }
+
+// ===================================
+// Process Diagram Section Interactive Features
+// ===================================
+/**
+ * Initializes interactive features for the new process diagram section
+ */
+function initProcessDiagram() {
+  const diagram = document.querySelector('#process-diagram .czochralski-diagram');
+  const tooltip = document.getElementById('diagramTooltip');
+  const playPauseBtn = document.getElementById('playPause');
+  const resetBtn = document.getElementById('reset');
+  const speedUpBtn = document.getElementById('speedUp');
+  const slowDownBtn = document.getElementById('slowDown');
+  
+  if (!diagram) return;
+  
+  let currentSpeed = 1;
+  let isPlaying = true;
+  
+  // Interactive elements hover/tooltips
+  const interactiveElements = diagram.querySelectorAll('.interactive-element, .diagram-element');
+  
+  interactiveElements.forEach(element => {
+    element.addEventListener('mouseenter', (e) => showDiagramTooltip(e, element, tooltip));
+    element.addEventListener('mousemove', (e) => moveDiagramTooltip(e, tooltip));
+    element.addEventListener('mouseleave', () => hideDiagramTooltip(tooltip));
+    
+    // Touch support for mobile
+    element.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showDiagramTooltip(e, element, tooltip);
+    });
+  });
+  
+  // Close tooltip when clicking outside
+  document.addEventListener('click', () => {
+    hideDiagramTooltip(tooltip);
+  });
+  
+  // Play/Pause functionality
+  if (playPauseBtn) {
+    playPauseBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        diagram.classList.remove('paused');
+        playPauseBtn.innerHTML = '⏸️ Пауза';
+      } else {
+        diagram.classList.add('paused');
+        playPauseBtn.innerHTML = '▶️ Старт';
+      }
+    });
+  }
+  
+  // Reset functionality
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      diagram.classList.remove('paused');
+      isPlaying = true;
+      if (playPauseBtn) {
+        playPauseBtn.innerHTML = '⏸️ Пауза';
+      }
+      currentSpeed = 1;
+      updateDiagramSpeed(diagram, currentSpeed);
+    });
+  }
+  
+  // Speed up
+  if (speedUpBtn) {
+    speedUpBtn.addEventListener('click', () => {
+      currentSpeed = Math.min(currentSpeed + 0.5, 3);
+      updateDiagramSpeed(diagram, currentSpeed);
+    });
+  }
+  
+  // Slow down
+  if (slowDownBtn) {
+    slowDownBtn.addEventListener('click', () => {
+      currentSpeed = Math.max(currentSpeed - 0.5, 0.5);
+      updateDiagramSpeed(diagram, currentSpeed);
+    });
+  }
+}
+
+/**
+ * Shows tooltip for a diagram element
+ * @param {Event} e - Mouse event
+ * @param {HTMLElement} element - Target element
+ * @param {HTMLElement} tooltip - Tooltip element
+ */
+function showDiagramTooltip(e, element, tooltip) {
+  if (!tooltip) return;
+  
+  const text = element.getAttribute('data-tooltip');
+  if (!text) return;
+  
+  tooltip.textContent = text;
+  tooltip.classList.add('visible');
+  moveDiagramTooltip(e, tooltip);
+}
+
+/**
+ * Moves tooltip to follow cursor
+ * @param {Event} e - Mouse event
+ * @param {HTMLElement} tooltip - Tooltip element
+ */
+function moveDiagramTooltip(e, tooltip) {
+  if (!tooltip) return;
+  
+  const wrapper = document.querySelector('.diagram-wrapper');
+  if (!wrapper) return;
+  
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const tooltipWidth = 300;
+  const tooltipHeight = 60;
+  
+  let left = e.clientX - wrapperRect.left + 15;
+  let top = e.clientY - wrapperRect.top + 15;
+  
+  // Prevent tooltip from going outside wrapper
+  if (left + tooltipWidth > wrapperRect.width) {
+    left = e.clientX - wrapperRect.left - tooltipWidth - 15;
+  }
+  if (top + tooltipHeight > wrapperRect.height) {
+    top = e.clientY - wrapperRect.top - tooltipHeight - 15;
+  }
+  
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+
+/**
+ * Hides the diagram tooltip
+ * @param {HTMLElement} tooltip - Tooltip element
+ */
+function hideDiagramTooltip(tooltip) {
+  if (!tooltip) return;
+  tooltip.classList.remove('visible');
+}
+
+/**
+ * Updates animation speed for the diagram
+ * @param {SVGElement} diagram - Diagram SVG element
+ * @param {number} speed - Speed multiplier
+ */
+function updateDiagramSpeed(diagram, speed) {
+  const animatedElements = diagram.querySelectorAll('animate, animateTransform');
+  animatedElements.forEach(anim => {
+    // Store original duration if not already stored
+    if (!anim.dataset.originalDur) {
+      anim.dataset.originalDur = anim.getAttribute('dur');
+    }
+    const originalDur = parseFloat(anim.dataset.originalDur);
+    if (originalDur) {
+      const newDur = originalDur / speed;
+      anim.setAttribute('dur', `${newDur}s`);
+    }
+  });
+}
+
+// Add to DOM ready handler
+document.addEventListener('DOMContentLoaded', initProcessDiagram);

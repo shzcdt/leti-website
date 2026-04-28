@@ -591,6 +591,233 @@ body {
 }
 
 /* ===================================
+   Process Diagram Section (NEW)
+   =================================== */
+.diagram-section {
+  padding: 80px 20px;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.diagram-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin-bottom: 40px;
+}
+
+/* Diagram Wrapper */
+.diagram-wrapper {
+  width: 100%;
+  margin: 40px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* SVG Diagram */
+.czochralski-diagram {
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  max-height: 800px;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Animation classes */
+.animate-crystal {
+  animation: rotateCrystal 8s linear infinite;
+  transform-origin: 610px 150px;
+}
+
+.animate-crucible {
+  animation: rotateCrucible 6s linear infinite reverse;
+  transform-origin: 610px 520px;
+}
+
+@keyframes rotateCrystal {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCrucible {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Tooltip */
+.diagram-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #f8fafc;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  max-width: 300px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.diagram-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Controls */
+.diagram-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.control-btn {
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.control-btn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+/* Legend */
+.diagram-legend {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.legend-icon {
+  font-size: 16px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .diagram-section {
+    padding: 40px 15px;
+  }
+  
+  .diagram-wrapper {
+    margin: 20px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .czochralski-diagram {
+    min-width: 600px;
+    max-height: 500px;
+  }
+  
+  .animate-crystal,
+  .animate-crucible {
+    animation-duration: 4s;
+  }
+  
+  .diagram-controls {
+    flex-direction: column;
+  }
+  
+  .control-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .diagram-legend {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .czochralski-diagram {
+    min-width: 500px;
+    max-height: 400px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-crystal,
+  .animate-crucible,
+  .ai-point {
+    animation: none;
+  }
+}
+
+/* ===================================
    Problem/Solution Section
    =================================== */
 .problem__grid {
