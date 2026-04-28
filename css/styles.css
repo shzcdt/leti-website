@@ -50,7 +50,7 @@
   --transition-slow: 500ms ease;
   
   /* Container */
-  --container-max: 1200px;
+  --container-max: 1366px;
 }
 
 /* Reset & Base Styles */
@@ -721,6 +721,7 @@ body {
 
 .opportunity-card__header {
   padding: var(--spacing-lg);
+  aspect-ratio: 2.5 auto;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
 }
 
@@ -737,6 +738,7 @@ body {
 
 .opportunity-card__list {
   padding: var(--spacing-lg);
+  aspect-ratio: 1.6 auto;
   list-style: none;
 }
 
@@ -784,7 +786,7 @@ body {
   gap: var(--spacing-lg);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 200px) {
   .cases__grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -820,6 +822,7 @@ body {
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: var(--spacing-lg);
+  aspect-ratio: 2.5 auto;
 }
 
 .case-card__result {
@@ -908,7 +911,7 @@ body {
 .member-card {
   background-color: var(--color-bg-card);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
   transition: all var(--transition-base);
